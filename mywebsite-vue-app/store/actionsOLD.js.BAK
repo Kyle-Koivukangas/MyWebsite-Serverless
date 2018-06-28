@@ -1,0 +1,112 @@
+// Actions are asynchronous, so they allow us to dispatch/carry out multiple (possibly asynchrous) operations,
+// Then they commit the actual changes to the state via mutation.
+
+//mutation types
+import * as mutation from "./mutation-types.js";
+
+// import { EventBus } from "~/utils/event-bus.js";
+import firebaseApp from "@/plugins/firebase";
+import { findUserByOid, updateUserDoc, getUsers } from "~/services/user";
+
+export async function nuxtServerInit({ dispatch, commit }, { app, req }) {
+  console.log("[STORE ACTION]- in nuxServerInit");
+
+  if (req.session && req.session.user) {
+    console.log(`[STORE ACTION] found user in session:${JSON.stringify(req.session.user)}`);
+    await dispatch("saveUser", req.session.user);
+  }
+}
+
+export async function loadUser({ dispatch, state }) {
+  console.log("[STORE ACTIONS] - loadUser");
+  if (state.user && state.user.uid) {
+    return state.user;
+  } else if (state.uid) {
+    await dispatch("initialiseUser", state.uid);
+    return state.user;
+  }
+}
+
+export async function logout({ dispatch }) {
+  console.log("[STORE ACTIONS] - logout");
+  await firebaseApp.auth().signOut();
+
+  await dispatch("saveUID", null);
+  await dispatch("saveUser", null);
+
+  const { status } = await this.$axios.post("/logout");
+  console.log("[STORE ACTIONS] - in logout, response:", status);
+}
+
+export async function login({ dispatch, state }, uid) {
+  console.log("[STORE ACTIONS] - login");
+  const token = await firebaseApp.auth().currentUser.getIdToken(true);
+
+  await dispatch("initialiseUser", uid);
+
+  const { status } = await this.$axios.$post("/login", { user: state.user, token: token });
+  console.log("[STORE ACTIONS] - in login, response:", status);
+}
+
+export async function initialiseUser({ dispatch }, uid) {
+  console.log("[STORE ACTIONS] - initialiseUser:", uid);
+  await dispatch("saveUID", uid);
+
+  const userDoc = await findUserByOid(uid);
+  if (userDoc.exists) {
+    let user = {
+      uid: userDoc.id,
+      data: userDoc.data(),
+    };
+    console.log("[STORE ACTIONS] - saving user to store:", user);
+    await dispatch("saveUser", user);
+  } else {
+    throw new Error("User does not exist in the database");
+  }
+}
+
+export function saveUID({ commit }, uid) {
+  console.log("[STORE ACTIONS] - saveUID");
+  commit(mutation.SAVE_UID, uid);
+}
+
+export function saveUser({ commit }, userPayload) {
+  console.log("[STORE ACTIONS] - saveUser");
+  commit(mutation.SAVE_USER, userPayload);
+}
+
+export function saveStory({ commit }, storyPayload) {
+  commit(mutation.SAVE_STORY, storyPayload);
+  EventBus.$emit("storyEvent", storyPayload);
+}
+
+export function savePages({ commit }, pagesPayload) {
+  commit(mutation.SAVE_PAGES, pagesPayload);
+}
+
+export async function updateUser({ dispatch }, user, userPart) {
+  console.log("[STORE ACTIONS] - updateUser");
+  await updateUserDoc(user.uid, userPart);
+  await dispatch("saveUser", user);
+}
+
+export function saveUsers({ commit }, usersPayload) {
+  console.log("[STORE ACTIONS] - saveUsers");
+  commit(mutation.SAVE_USERS, usersPayload);
+}
+export async function loadUsers({ dispatch, users, state }) {
+  console.log("[STORE ACTIONS] - loadUsers");
+  if (!!state.users && state.users.Qge61AfK1j2ywsE4XO3d) {
+    console.log("[STORE ACTIONS] - Users already in state.");
+    return state.users;
+  } else {
+    const users = await getUsers();
+    // await dispatch("saveUsers", users);
+    if (users.exists) {
+      await dispatch("saveUsers", users);
+    } else {
+      throw new Error("couldn't get users from API");
+    }
+    return state.users;
+  }
+}
