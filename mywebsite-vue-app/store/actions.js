@@ -5,9 +5,11 @@
 import * as mutation from "./mutation-types.js";
 
 // import { EventBus } from "~/utils/event-bus.js";
-import firebaseApp from "@/plugins/firebase";
+import firebase from "@/plugins/firebase";
 import { findUserByOid, updateUserDoc, fetchUserList } from "~/services/user";
 import { getLatestBlogPosts } from "~/services/blogPosts";
+
+const blogPostDB = firebase.database().ref("/flamelink/environments/production/content/blogPosts");
 
 export async function nuxtServerInit({ dispatch, commit }, { app, req }) {
   console.log("[STORE ACTION]- in nuxServerInit");
@@ -50,7 +52,9 @@ export async function initialiseUserList({ dispatch }) {
   }
 }
 
-//Blog Actions:
+//*******************************************
+//              Blog Actions:
+//*******************************************
 export async function saveLatestBlogPosts({ commit }, latestBlogPostsPayload) {
   console.log("[STORE ACTIONS] - Saving Latest Blog posts");
   commit(mutation.SAVE_LATESTPOSTS, latestBlogPostsPayload);
@@ -80,4 +84,31 @@ export async function initialiseLatestBlogPosts({ dispatch }) {
   } else {
     throw new Error("could not retrieve blog posts from API.");
   }
+}
+
+export async function loadBlogPosts({ commit }) {
+  blogPostDB
+    .child("en-US")
+    .once("value")
+    .then(data => {
+      const blogPosts = [];
+      const obj = data.val();
+      for (let key in obj) {
+        blogPosts.push({
+          id: key,
+          title: obj[key].title,
+          author: obj[key].author,
+          date: obj[key].date,
+          slug: obj[key].slug,
+          status: obj[key].status,
+          summary: obj[key].summary,
+          content: obj[key].content,
+          tags: obj[key].tags,
+        });
+      }
+      commit("SET_LOADEDBLOGPOSTS", blogPosts);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }

@@ -1,7 +1,12 @@
 <template>
     <div>
         <h1>Blog Page</h1>
-        <div>{{ latestBlogPosts }}</div>
+        <!-- <div>{{ latestBlogPosts }}</div> -->
+        <ol>
+            <li v-for="post in latestBlogPosts" :key="post.id">
+                {{ post.title }}
+            </li>
+        </ol>
     </div>
 </template>
 
@@ -11,7 +16,15 @@ import { mapActions } from 'vuex'
 export default {
     data() {
         return {
-            latestBlogPosts: null,
+            // latestBlogPosts: null,
+        }
+    },
+    computed: {
+        blogPosts() {
+            return this.$store.getters.loadedBlogPosts
+        },
+        latestBlogPosts() {
+            return this.$store.getters.latestBlogPosts
         }
     },
     created: function () {

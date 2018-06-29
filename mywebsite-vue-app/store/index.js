@@ -10,7 +10,7 @@ export const state = () => ({
   pages: [],
   users: null,
   userList: null,
-  latestBlogPosts: null,
+  loadedBlogPosts: [],
 });
 
 const createStore = () => {

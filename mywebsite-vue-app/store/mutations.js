@@ -38,4 +38,7 @@ export const mutations = {
   [types.SAVE_LATESTPOSTS](state, latestPostsPayload) {
     state.latestBlogPosts = latestPostsPayload;
   },
+  [types.SET_LOADEDBLOGPOSTS](state, payload) {
+    state.loadedBlogPosts = payload;
+  },
 };

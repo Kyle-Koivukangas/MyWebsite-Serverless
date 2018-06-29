@@ -29,7 +29,21 @@ export const getters = {
   },
 
   //blog post Getters:
-  latestBlogPosts: state => {
-    return state.latestBlogPosts;
+  loadedBlogPosts: state => {
+    return state.loadedBlogPosts.sort((postA, postB) => {
+      //custom sort by date.
+      return postA.date > postB.date;
+    });
+  },
+  loadedBlogPost: state => {
+    return postId => {
+      return state.loadedBlogPosts.find(blogPost => {
+        //custom search by post id.
+        blogPost.id === postId;
+      });
+    };
+  },
+  latestBlogPosts: (state, getters) => {
+    return getters.loadedBlogPosts.slice(0, 3);
   },
 };
