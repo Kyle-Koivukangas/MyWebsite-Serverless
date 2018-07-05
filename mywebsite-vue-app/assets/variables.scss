@@ -1,0 +1,127 @@
+// @import url('https://fonts.googleapis.com/css?family=Josefin+Slab|Ubuntu|Ubuntu+Condensed|Vollkorn');
+
+// @font-face {
+//     font-family: 'Josefin Slab';
+//     src: url("/assets/fonts2/Josefin_Slab/JosefinSlab-Regular.ttf") format("truetype");
+//  }
+//  @font-face {
+//     font-family: 'Vollkorn';
+//     src: url("/assets/fonts2/Vollkorn/Vollkorn-Regular.ttf") format("truetype");
+//  }
+//  @font-face {
+//     font-family: 'Ubuntu';
+//     src: url("/assets/fonts2/Ubuntu/Ubuntu-Regular.ttf") format("truetype");
+//  }
+//  @font-face {
+//     font-family: 'Ubuntu Condensed';
+//     src: url("/assets/fonts2/Ubuntu_Condensed/UbuntuCondensed-Regular.ttf") format("truetype");
+//  }
+//  @font-face {
+//     font-family: 'Lato';
+//     src: url("/assets/fonts2/Lato/Lato-Regular.ttf") format("truetype");
+//  }
+
+// $josefin: "Josefin Slab", serif;
+// $vollkorn: "Vollkorn", serif;
+// $ubuntu: "Ubuntu", sans-serif;
+// $ubuntucond: "Ubuntu Condensed", sans-serif;
+// $lato: "Lato", sans-serif;
+
+//(Old color pallets from Django-version)
+// palette 1
+$white: #f9f9f9;
+$lightgrey: #d8d8d8;
+$grey: #9b9b9b;
+$highlight: #4497e3;
+$blue1: #4f789d;
+// palette 2
+$offwhite: #f5f1ed;
+$darkgrey: #3c3c3b;
+$black: #252323;
+$highlight2: #00AEFF; // old:  #06c8fe;
+$blue2: #70798c;
+
+//content width (how wide I want the default wrapper)
+$contentSize: 900px;
+
+// Media screen sizes
+$mediaSmall: 900px; //meant for max-width
+
+//|==~===================================;~
+//|   \             MIXINS:             /
+//|    \_______________________________/
+
+//************
+// Animations:
+//************
+// Slide In/Out
+@keyframes slideInLeft {
+    from {
+      transform: translate3d(-100%, 0, 0);
+      visibility: visible;
+    }
+  
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .slideInLeft {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+  }
+  @keyframes slideOutLeft {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+  
+    to {
+      visibility: hidden;
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+  
+  .slideOutLeft {
+    -webkit-animation-name: slideOutLeft;
+    animation-name: slideOutLeft;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+  }
+  
+  // Pulse
+  @-webkit-keyframes pulse {
+    from {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.05, 1.05, 1.05);
+      transform: scale3d(1.05, 1.05, 1.05);
+    }
+  
+    to {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  @keyframes pulse {
+    from {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.05, 1.05, 1.05);
+      transform: scale3d(1.05, 1.05, 1.05);
+    }
+  
+    to {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  

@@ -1,0 +1,44 @@
+{
+    "name": "mywebsite-serverless",
+    "version": "1.0.0",
+    "description": "Remaking my website again, this version is serverless for low maintenance: Vue.js, Nuxt.js, Vuetify, Firebase.",
+    "author": "Kyle-Koivukangas",
+    "private": true,
+    "scripts": {
+      "dev": "nuxt",
+      "build": "nuxt build",
+      "start": "nuxt start",
+      "generate": "nuxt generate"
+    },
+    "dependencies": {
+        // BACKUP OF DEPENDENCIES, I removed most of the font-awesome dependencies from the original package.json. This is just a backup incase it turns out I needed one.
+        // DELETE THIS FILE FOR PRODUCTION.
+      "@fortawesome/fontawesome": "^1.1.8",
+      "@fortawesome/fontawesome-common-types": "^0.2.0",
+      "@fortawesome/fontawesome-free-brands": "^5.0.13",
+      "@fortawesome/fontawesome-svg-core": "^1.2.0",
+      "@fortawesome/vue-fontawesome": "^0.1.0",
+      "@nuxtjs/axios": "^5.0.0",
+      "firebase": "^5.2.0",
+      "fontawesome": "^4.7.2",
+      "gsap": "^2.0.1",
+      "nuxt": "^1.0.0",
+      "nuxt-fontawesome": "^0.3.0",
+      "vue-awesome": "^3.0.3",
+      "vuefire": "^1.4.5",
+      "vuetify": "^0.17.3"
+    },
+    "devDependencies": {
+      "babel-core": "^6.26.3",
+      "babel-loader": "^7.1.4",
+      "babel-polyfill": "^6.26.0",
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-stage-0": "^6.24.1",
+      "cross-env": "^5.0.1",
+      "node-sass": "^4.9.0",
+      "sass-loader": "^7.0.3",
+      "stylus": "^0.54.5",
+      "stylus-loader": "^3.0.1"
+    }
+  }
+  

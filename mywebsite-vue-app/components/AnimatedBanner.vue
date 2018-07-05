@@ -4,7 +4,7 @@
         </div> -->
 
         
-        <div :color="'light-blue darken-1'" dark class="inner main-banner justify-center align-center text-center overflow" ripple>
+        <div :color="'light-blue darken-1'" dark class="inner main-banner justify-center align-center text-center" ripple>
             
             <!-- <div class="header-container"> -->
             <!-- <v-card-title primary-title><h1>Hi, I'm Kyle.<br>I design &amp; build web apps.</h1></v-card-title> -->
@@ -24,12 +24,13 @@ export default {
 
 <style lang="scss">
 .outer {
-    background-color: grey;
+    // background-color: grey;
     position: relative;
     height: 350px;
     width: 100%;
     margin: auto;
     padding: 25px 0;
+    
 }
 .inner {
     height: 650px;
@@ -40,6 +41,8 @@ export default {
     margin: auto;
     padding: auto;
     
+    -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
 }
 .spacer {
     height: 320px;
@@ -48,27 +51,21 @@ export default {
     margin: auto;
 }
 .main-banner {
+    background-color: #00aeff;
     color: white;
-    // background-color: $highlight2;
-    // background-color: #00aeff;
     height: 300px;
-    // max-width: $contentSize;
     margin: 30px auto;
     border-radius: 2px;
-    // display: flex;
-    // justify-content: left;
-    // align-items: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden;
     //   background-image: url("../assets/webdevbanner.jpg");
     //   background-image: url("../assets/stocklaptop.jpg");
     // background-size: 1920px 1080px;
     // background-position-y: -250px;
 }
-.test {
-    background-color: rgb(145, 32, 32);
-}
-.overflow {
-    overflow: hidden !important;
-}
+
 
 #outer {
     position: relative;
@@ -85,7 +82,6 @@ export default {
     left: 50px;
     top: 75px;
     overflow: hidden;
-    white-space: nowrap;
     font-size: 2em;
     font-weight: bold;
     padding: 0.2em 1em;
@@ -93,6 +89,8 @@ export default {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0);
     -webkit-animation: motionblur 1s ease-out;
     animation: motionblur 1s ease-out;
+    white-space: normal;
+    
 }
 
 @keyframes grow {
@@ -106,6 +104,7 @@ export default {
     0% {
         left: 4000px;
         text-shadow: 5px 0 5px rgba(255, 255, 255, 0);
+        white-space: nowrap;
         // box-shadow: 0 0 0 rgba(200,0,0,0);
     }
     5% {
@@ -134,12 +133,15 @@ export default {
         text-shadow: 5px 0 5px rgba(255, 255, 255, 1);
         // box-shadow: 15px 0 10px -5px rgba(200,0,0,0.5);
         -webkit-transform: scaleX(1.1) skewX(4deg);
+        white-space: nowrap;
     }
     100% {
         left: 0px;
         text-shadow: 0 0 0 rgba(255, 255, 255, 0);
         // box-shadow: 0 0 0 rgba(200,0,0,0);
         -webkit-transform: scaleX(1) skewX(0deg);
+        white-space: normal;
+        
     }
 }
 
@@ -147,6 +149,7 @@ export default {
     0% {
         left: 4000px;
         text-shadow: 5px 0 5px rgb(255, 255, 255);
+        white-space: nowrap;
         // box-shadow: 0 0 0 rgba(200,0,0,0);
     }
     30% {
@@ -160,12 +163,14 @@ export default {
         left: 60px;
         text-shadow: 5px 0 5px rgba(255, 255, 255, 0.3);
         transform: scaleX(1) skewX(-4deg);
+        white-space: nowrap;
     }
     100% {
         left: 50px;
         text-shadow: 0 0 0 rgba(255, 255, 255, 0);
         // box-shadow: 0 0 0 rgba(200,0,0,0);
         transform: scaleX(1) skewX(0deg);
+        white-space: normal;
     }
 }
 </style>
