@@ -1,5 +1,5 @@
 <template>
-    <button class="toolbar_side-button" @click="animateButton">
+    <button class="toolbar_side-button">
         <div class="button_content">
             <svg class="menu-btn" width="50" height="50" viewBox="0 0 500 450" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> 
                 <g>
@@ -18,27 +18,27 @@
 import { TweenMax } from 'gsap'
 
 export default {
-    props: [],
+    props: ['showDrawer'],
     data() {
         return {
             minimized: false,
         }
     },
-    methods: {
-        animateButton() {
+    watch: {
+        showDrawer: function(value) {
+            // Animate the menu icon SVG when showDrawer Valus changes, this way it won't require the click event to fire. 
+            // If the drawer is opened or closed by other means (changing screen size, hitting esc, etc.) it will still animate properly
             const topRect = document.getElementById("svg_2")
             const botRect = document.getElementById("svg_4")
-
-            if(!this.minimized) {
+            
+            if(value) {
                 console.log('state: active');
                 TweenMax.to(topRect, .3,{y:121});
-                TweenMax.to(botRect, .3,{y:-121});
-                this.minimized = true;                
+                TweenMax.to(botRect, .3,{y:-121});                
             } else {
             console.log("state: inactive")
                 TweenMax.to(topRect, .3,{y:0});
                 TweenMax.to(botRect, .3,{y:0});
-                this.minimized = false;
             }
         }
     },
