@@ -34,7 +34,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ["@/plugins/vuetify"],
+  plugins: ["@/plugins/vuetify", "~/plugins/vue-awesome", { src: "~plugins/font-awesome" }],
 
   /*
   ** Nuxt.js modules
@@ -42,6 +42,18 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     "@nuxtjs/axios",
+    // [
+    //   "nuxt-fontawesome",
+    //   {
+    //     component: "fa",
+    //     imports: [
+    //       {
+    //         set: "@fortawesome/fontawesome-common-types",
+    //         icons: ["envelope", "github", "linkedin"],
+    //       },
+    //     ],
+    //   },
+    // ],
   ],
   /*
   ** Axios module configuration
@@ -60,6 +72,7 @@ module.exports = {
     // babel: {
     //   presets: ["env", "stage-0"],
     // },
+    vendor: ["vue-awesome"],
 
     extend(config, ctx) {
       if (ctx.isServer) {
