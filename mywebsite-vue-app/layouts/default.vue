@@ -94,7 +94,7 @@
     <!-- <v-toolbar app fixed clipped-left>
     </v-toolbar> -->
     <v-content >
-        <nav-side-icon @click.native.stop="drawer = !drawer"></nav-side-icon>
+        <nav-side-icon @click.native.stop="drawer = !drawer" :showDrawer="drawer" ripple></nav-side-icon>
         <!-- commented out old sidebar button, using custom sidebar. -->
         <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
         <v-layout justify-center align-center>
@@ -105,9 +105,9 @@
           </v-flex>
         </v-layout>
     </v-content>
-    <v-footer app inset>
+    <v-footer app inset class="footer">
       <span>Kyle Koivukangas &copy; 2018</span>
-      <v-spacer></v-spacer>
+      <v-spacer style="height: 50px"></v-spacer>
       <span @click="rangefinder = !rangefinder">Rangefinder</span>
     </v-footer>
   <rangefinder v-if="rangefinder" />
@@ -200,6 +200,7 @@ export default {
 // $ubuntucond: "Ubuntu Condensed", sans-serif;
 // $lato: "Lato", sans-serif;
 
+
 .icon {
     font-size: 20px;
     width: 20px;
@@ -261,6 +262,7 @@ export default {
 .content-wrapper {
     max-width: 1185px;
 }
+
 
 .toolbar__side-icon {
 }
