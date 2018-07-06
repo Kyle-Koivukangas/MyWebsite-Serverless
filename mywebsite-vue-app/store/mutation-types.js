@@ -11,4 +11,7 @@ export const SAVE_USERLIST = "SAVE_USERLIST";
 
 //blog page mutations:
 export const SAVE_LATESTPOSTS = "SAVE_LATESTPOSTS";
-export const SET_LOADEDBLOGPOSTS = "SET_LOADEDBLOGPOSTS";
+export const SAVE_LOADEDBLOGPOSTS = "SAVE_LOADEDBLOGPOSTS";
+
+// Projects mutations:
+export const SAVE_LOADEDPROJECTS = "SAVE_LOADEDPROJECTS";

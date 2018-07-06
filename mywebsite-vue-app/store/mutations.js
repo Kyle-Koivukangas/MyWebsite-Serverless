@@ -26,7 +26,7 @@ export const mutations = {
     state.pages = pagesPayload;
   },
 
-  //my additions
+  // My additions to mutations
   [types.SAVE_USERS](state, usersPayload) {
     state.users = usersPayload;
   },
@@ -34,11 +34,16 @@ export const mutations = {
     state.userList = userListPayload;
   },
 
-  //blog additions
+  // Blog mutations
   [types.SAVE_LATESTPOSTS](state, latestPostsPayload) {
     state.latestBlogPosts = latestPostsPayload;
   },
-  [types.SET_LOADEDBLOGPOSTS](state, payload) {
-    state.loadedBlogPosts = payload;
+  [types.SAVE_LOADEDBLOGPOSTS](state, blogPostsPayload) {
+    state.loadedBlogPosts = blogPostsPayload;
+  },
+
+  // Projects Mutations
+  [types.SAVE_LOADEDPROJECTS](state, projectsPayload) {
+    state.loadedProjects = projectsPayload;
   },
 };

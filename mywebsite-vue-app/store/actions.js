@@ -10,6 +10,7 @@ import { findUserByOid, updateUserDoc, fetchUserList } from "~/services/user";
 import { getLatestBlogPosts } from "~/services/blogPosts";
 
 const blogPostDB = firebase.database().ref("/flamelink/environments/production/content/blogPosts");
+const projectsDB = firebase.database().ref("/flamelink/environments/production/content/projects");
 
 export async function nuxtServerInit({ dispatch, commit }, { app, req }) {
   console.log("[STORE ACTION]- in nuxServerInit");
@@ -50,6 +51,37 @@ export async function initialiseUserList({ dispatch }) {
   } else {
     throw new Error("could not retrieve user list from API.");
   }
+}
+
+//*******************************************
+//              Projects Actions:
+//*******************************************
+
+export async function fetchProjects({ commit }) {
+  // Populates store.loadedProjects with list of projects pulled from firebase API.
+  projectsDB
+    .child("en-US")
+    .once("value")
+    .then(data => {
+      const projects = [];
+      const obj = data.val();
+      for (let key in obj) {
+        projects.push({
+          id: key,
+          title: obj[key].title,
+          author: obj[key].author,
+          date: obj[key].date,
+          status: obj[key].status,
+          summary: obj[key].summary,
+          content: obj[key].content,
+          image: obj[key].image,
+        });
+      }
+      commit("SAVE_LOADEDPROJECTS", projects);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 //*******************************************
@@ -106,7 +138,7 @@ export async function loadBlogPosts({ commit }) {
           tags: obj[key].tags,
         });
       }
-      commit("SET_LOADEDBLOGPOSTS", blogPosts);
+      commit("SAVE_LOADEDBLOGPOSTS", blogPosts);
     })
     .catch(error => {
       console.log(error);

@@ -11,6 +11,7 @@ export const state = () => ({
   users: null,
   userList: null,
   loadedBlogPosts: [],
+  loadedProjects: [],
 });
 
 const createStore = () => {

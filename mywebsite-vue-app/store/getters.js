@@ -28,10 +28,10 @@ export const getters = {
     return state.userList;
   },
 
-  //blog post Getters:
+  // Blog post Getters:
   loadedBlogPosts: state => {
     return state.loadedBlogPosts.sort((postA, postB) => {
-      //custom sort by date.
+      // return blog posts custom sorted by date.
       return postA.date > postB.date;
     });
   },
@@ -45,5 +45,13 @@ export const getters = {
   },
   latestBlogPosts: (state, getters) => {
     return getters.loadedBlogPosts.slice(0, 3);
+  },
+
+  // Projects getters:
+  loadedProjects: state => {
+    // return list projects, sorted chronologically
+    return state.loadedProjects.sort((projectA, projectB) => {
+      return projectA.date > projectB.date;
+    });
   },
 };

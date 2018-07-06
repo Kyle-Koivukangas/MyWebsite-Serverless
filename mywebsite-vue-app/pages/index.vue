@@ -18,15 +18,11 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import ContactLinks from '~/components/ContactLinks'
 import AnimatedBanner from '~/components/AnimatedBanner'
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo,
     ContactLinks,
     AnimatedBanner,
   }
