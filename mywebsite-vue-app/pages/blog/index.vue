@@ -38,6 +38,7 @@ export default {
             console.log("[CREATED HOOK] - LatestBlogPosts Loaded.");
             console.log(latestBlogPosts);
             this.latestBlogPosts = latestBlogPosts;
+            
         })
     },
     methods: {
@@ -50,5 +51,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

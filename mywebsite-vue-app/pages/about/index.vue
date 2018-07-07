@@ -1,7 +1,11 @@
 <template>
-    <div>
-        <h1>About Page</h1>
-    </div>
+  <v-container>
+    <v-layout column justify-center align-center>
+      <v-flex justify-center align-center>
+        <v-card></v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
