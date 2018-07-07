@@ -6,13 +6,13 @@ import * as mutation from "./mutation-types.js";
 
 // import { EventBus } from "~/utils/event-bus.js";
 import firebase from "@/plugins/firebase";
-import { findUserByOid, updateUserDoc, fetchUserList } from "~/services/user";
-import { getLatestBlogPosts } from "~/services/blogPosts";
+import {findUserByOid, updateUserDoc, fetchUserList} from "~/services/user";
+import {getLatestBlogPosts} from "~/services/blogPosts";
 
 const blogPostDB = firebase.database().ref("/flamelink/environments/production/content/blogPosts");
 const projectsDB = firebase.database().ref("/flamelink/environments/production/content/projects");
 
-export async function nuxtServerInit({ dispatch, commit }, { app, req }) {
+export async function nuxtServerInit({dispatch, commit}, {app, req}) {
   console.log("[STORE ACTION]- in nuxServerInit");
 
   if (req.session && req.session.user) {
@@ -21,11 +21,11 @@ export async function nuxtServerInit({ dispatch, commit }, { app, req }) {
   }
 }
 
-export async function saveUserList({ commit }, userListPayload) {
+export async function saveUserList({commit}, userListPayload) {
   console.log("[STORE ACTIONS] - saveUserList");
   commit(mutation.SAVE_USERLIST, userListPayload);
 }
-export async function loadUserList({ dispatch, state }) {
+export async function loadUserList({dispatch, state}) {
   console.log("[STORE ACTIONS] - loadUserList");
 
   if (state.userList != null) {
@@ -40,7 +40,7 @@ export async function loadUserList({ dispatch, state }) {
     return state.userList;
   }
 }
-export async function initialiseUserList({ dispatch }) {
+export async function initialiseUserList({dispatch}) {
   console.log("[STORE ACTIONS] - initialiseUserList");
 
   const userList = await fetchUserList();
@@ -57,7 +57,7 @@ export async function initialiseUserList({ dispatch }) {
 //              Projects Actions:
 //*******************************************
 
-export async function fetchProjects({ commit }) {
+export async function fetchProjects({commit}) {
   // Populates store.loadedProjects with list of projects pulled from firebase API.
   projectsDB
     .child("en-US")
@@ -87,11 +87,11 @@ export async function fetchProjects({ commit }) {
 //*******************************************
 //              Blog Actions:
 //*******************************************
-export async function saveLatestBlogPosts({ commit }, latestBlogPostsPayload) {
+export async function saveLatestBlogPosts({commit}, latestBlogPostsPayload) {
   console.log("[STORE ACTIONS] - Saving Latest Blog posts");
   commit(mutation.SAVE_LATESTPOSTS, latestBlogPostsPayload);
 }
-export async function loadLatestBlogPosts({ dispatch, state }) {
+export async function loadLatestBlogPosts({dispatch, state}) {
   console.log("[STORE ACTIONS] - Load latest blog posts..");
 
   if (state.latestBlogPosts != null) {
@@ -105,7 +105,7 @@ export async function loadLatestBlogPosts({ dispatch, state }) {
     return state.latestBlogPosts;
   }
 }
-export async function initialiseLatestBlogPosts({ dispatch }) {
+export async function initialiseLatestBlogPosts({dispatch}) {
   console.log("[STORE ACTIONS] - initialiseLatestBlogPosts");
 
   const latestBlogPosts = await getLatestBlogPosts();
@@ -118,7 +118,7 @@ export async function initialiseLatestBlogPosts({ dispatch }) {
   }
 }
 
-export async function loadBlogPosts({ commit }) {
+export async function loadBlogPosts({commit}) {
   blogPostDB
     .child("en-US")
     .once("value")
