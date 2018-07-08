@@ -1,0 +1,34 @@
+
+// Breakpoint mixin is set to Vuetify breakpoint values.
+// To use:
+//   @include breakpoint(xs) {
+//     width: 100%;
+//   }
+@mixin breakpoint($name) {
+  @if $name == "xs" {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+  @else if $name == "sm" {
+    @media (max-width: 960px) {
+      @content;
+    }
+  }
+  @else if $name == "md" {
+    @media (max-width: 1264px) {
+      @content;
+    }
+  }
+  @else if $name == "lg" {
+    @media (max-width: 1904px) {
+      @content;
+    }
+  }
+  @else if $name == "xl" {
+    @media (min-width: 1904px) {
+      @content;
+    }
+  }
+}
+

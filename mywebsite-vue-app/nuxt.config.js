@@ -11,40 +11,45 @@ module.exports = {
   head: {
     title: pkg.name,
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: pkg.description },
+      {charset: "utf-8"},
+      {name: "viewport", content: "width=device-width, initial-scale=1"},
+      {hid: "description", name: "description", content: pkg.description},
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" },
+      {rel: "icon", type: "image/x-icon", href: "/favicon.ico"},
+      {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"},
     ],
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: "#FFFFFF", height: "5px" },
+  loading: {
+    color: "#00BCD4", height: "10px"},
 
   /*
   ** Global CSS
   */
-  css: ["vuetify/src/stylus/main.styl"],
+  css: ["vuetify/src/stylus/main.styl", "@/assets/scss/mixins.scss", "./assets/scss/mixins.scss"],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ["@/plugins/vuetify", "~/plugins/vue-awesome", { src: "~plugins/font-awesome" }],
+  plugins: ["@/plugins/vuetify", "~/plugins/vue-awesome"],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    "@nuxtjs/axios",
+    // "@nuxtjs/axios",
+    ['nuxt-sass-resources-loader', [
+      '@/assets/scss/mixins.scss',
+      '@/assets/scss/variables.scss',
+    ]],
     // [
     //   "nuxt-fontawesome",
-    //   {
+    //   {+
     //     component: "fa",
     //     imports: [
     //       {

@@ -17,7 +17,7 @@
         <v-container class="contact-links">
           <ul>
             <li><a href="mailto:kyle.koivukangas@gmail.com" ><icon class="ico" name="envelope" scale="1" label="Email"></icon> Email</a></li>
-            <li><a target="_blank" href="https://api.whatsapp.com/send?phone=17785354254" ><icon class="ico" name="whatsapp" scale="1" label="whatsapp"></icon> Whatsapp</a></li>
+            <!-- <li><a target="_blank" href="https://api.whatsapp.com/send?phone=14035354254" ><icon class="ico" name="whatsapp" scale="1" label="whatsapp"></icon> Whatsapp</a></li> -->
             <li><a target="_blank" href="https://github.com/Kyle-Koivukangas" ><icon class="ico" name="github" scale="1" label="github"></icon> Github</a></li>
             <li><a target="_blank" href="" ><icon class="ico" name="stack-overflow" scale="1" label="stack overflow"></icon> Stack Overflow</a></li>
             <li><a target="_blank" href="https://www.linkedin.com/in/kyle-koivukangas" ><icon class="ico" name="linkedin-square" scale="1" label="linkedin"></icon> LinkedIn</a></li>
@@ -41,6 +41,7 @@ export default {};
 <style lang="scss" scoped>
 // @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css");
 
+
 $contentwidth: 900px;
 .contact {
   width: $contentwidth;
@@ -57,15 +58,26 @@ $contentwidth: 900px;
   //   display: grid;
   width: 100%;
   margin: auto;
+
+  @include breakpoint(xs) {
+    padding: 0;
+  }
+
   & ul {
-    columns: 3;
+    columns: 4;
     margin: 0 auto;
     text-align: center;
     width: 100%;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
+
+    @include breakpoint(sm) {
+      grid-template-columns: 1fr 1fr;
+      columns: 2;
+    }
+    
   }
   & li {
     display: inline-block;
