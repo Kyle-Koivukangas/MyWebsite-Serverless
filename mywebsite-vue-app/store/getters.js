@@ -49,9 +49,15 @@ export const getters = {
 
   // Projects getters:
   loadedProjects: state => {
-    // return list projects, sorted chronologically
-    return state.loadedProjects.sort((projectA, projectB) => {
+    // Return list projects, sorted chronologically.
+    return state.loadedprojects.sort((projectA, projectB) => {
       return projectA.date > projectB.date;
     });
   },
+  getProjectById: state => {
+    return id => state.loadedProjects.filter(project => {
+        return project.id === id;
+      });
+  },
+
 };

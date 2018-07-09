@@ -3,7 +3,8 @@
         - DELETE OLD COMMENTED OUT COMPONENTS. 
    -->
     <v-app id="inspire" v-resize="onResize">
-    <v-navigation-drawer v-model="drawer" clipped fixed app>
+    <v-navigation-drawer v-model="drawer" clipped fixed app disable-route-watcher>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> 
       <v-layout mt-5 mb-5 column wrap>
         <v-flex xs12 sm12 md12 text-xs-center layout align-center justify-center>
           <v-avatar mx-auto :tile="false" :size="'150px'" color="grey lighten-4">
@@ -111,7 +112,6 @@
       <span @click="rangefinder = !rangefinder">Rangefinder</span>
     </v-footer>
   <rangefinder v-if="rangefinder" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   </v-app>
 </template>
 
@@ -121,10 +121,10 @@ import NavSideIcon from '~/components/NavSideIcon'
 
 
 // import * as firebase from 'firebase'
-// import "vue-awesome/icons/envelope";
-// import "vue-awesome/icons/github";
-// import "vue-awesome/icons/linkedin-square";
-// import "vue-awesome/icons/stack-overflow";
+import "vue-awesome/icons/envelope";
+import "vue-awesome/icons/github";
+import "vue-awesome/icons/linkedin-square";
+import "vue-awesome/icons/stack-overflow";
 
 export default {
   components: {
@@ -268,4 +268,5 @@ export default {
 }
 .btn__content {
 }
+
 </style>

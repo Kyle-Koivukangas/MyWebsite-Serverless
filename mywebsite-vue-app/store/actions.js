@@ -66,7 +66,7 @@ export async function fetchProjects({commit}) {
       const projects = [];
       const obj = data.val();
       for (let key in obj) {
-        projects.push({
+          projects.push({
           id: key,
           title: obj[key].title,
           author: obj[key].author,

@@ -1,111 +1,91 @@
 <template>
-  <!-- <div>
-        <div class="banner">
-            <div class="header-container">
-                <h1>Projects</h1>
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="hr"></div>
-            <div v-for="project in projects" :key="project.title" class="project">
-                <div :style="{backgroundImage: 'url(' + project.image + ')' }" class="project-banner">
-                    <h2>{{ project.title }}</h2>
-                </div>
-                <div class="project-description">
-                    <p><span v-html="project.summary"></span></p>
-                </div>
-            </div>
-            <div v-if="apiFailed" v-for="project in projects" :key="project.title" class="project">
-                <div :style="{backgroundImage: 'url(' + project.image + ')' }" class="project-banner">
-                    <h2>{{ project.title }}</h2>
-                </div> 
-                <div class="project-description">
-                    <p><span v-html="project.description"></span></p>
-                </div>
-            </div>
-        </div> 
-        <hr class="my-4"/>
-        <contact-links></contact-links>
-  </div> -->
-
-
-
-
-
-  <v-container>
-    <v-layout row wrap justify-center >
-      <v-flex xs12 sm6 text-xs-center text-sm-right>
-        <v-btn large router to="/projects">Explore Projects</v-btn>
-      </v-flex>
-      <v-flex xs12 sm6 text-xs-center text-sm-left>
-        <v-btn large @click="addTestProject()">Add Project</v-btn>
-      </v-flex>
-      <v-flex sm12 md5 ma-3 text-xs-center v-for="project in projects" :key="project.title">
-        <v-card align-center justify-center>
-          <v-card-media height="200px" :src="project.image">
-            <v-container fill-height fluid>
-              <v-layout fill-height>
-                <v-flex xs12 align-end flexbox>
-                  <span class="headline">{{project.title}}</span>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-media>
-
-          <!-- NOTE: Plan is to have the image take up entire card and on hover the summary and project title will
-                      transition up from the bottom (like a div rising from bottom), image will slowly zoom in on hover, too.
-          
-           -->
-          <v-card-title>
-            <div>
-              <span class="grey--text">Summary:</span><br>
-              <span>{{project.summary}}</span>
-            </div>
-          </v-card-title>
-          <v-card-actions class="justify-center">
-            <v-btn flat color="light-blue darken-1">Share</v-btn>
-            <v-btn flat color="light-blue darken-1">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
+  <v-container justify-center>
+    <v-layout row>
+      <v-flex>
+        <content-feed :feed="feed" @viewing="fetchPost($event)" item-height="300px">
+          <content-view :content="content" slot="content"/>
+        </content-feed>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import ContentFeed from '@/components/ContentView/ContentFeed.vue';
+import ContentView from '@/components/ContentView/ContentView.vue';
+
 export default {
-  async fetch({store, params}) {
-    await store.dispatch('fetchProjects')
-  
+  components: {
+    ContentFeed,
+    ContentView,
   },
   data() {
     return {
-      projects: [],
-      projectCount: 0
-    }
-  },
-  computed: {
-    projects(state) {
-      return this.$store.getters.loadedProjects
+      transition: "fade",
+      // Feed is from the initial API call, a light postList with: ID, title, author, thumbnail image and quick summary
+      feed: [
+        {
+          id: "1530159366591",
+          title: "Project Title 1",
+          slug: "test-slug-1",
+          author: "Kyle Koivukangas",
+          date: "2018-06-27T21:15:39-07:00",
+          status: "published",
+          summary: "This is a summary of the project: Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+          content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.\nLorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.",
+          image: "https://placeimg.com/640/480/nature"
+        },
+        {
+          id: "1530159366592",
+          title: "Project Title 2",
+          slug: "test-slug-2",
+          author: "Kyle Koivukangas",
+          date: "2018-06-27T21:15:39-08:00",
+          status: "published",
+          summary: "This is a summary of the project: Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+          content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.\nLorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.",
+          image: "https://placeimg.com/640/480/nature?t=1531124396132"
+        },
+        {
+          id: "1530159366593",
+          title: "Project Title 3",
+          slug: "test-slug-3",
+          author: "Kyle Koivukangas",
+          date: "2018-06-27T21:15:39-09:00",
+          status: "draft",
+          summary: "This is a summary of the project: Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+          content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.\nLorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.",
+          image: "https://placeimg.com/640/480/nature?t=1531124405382"
+        },
+        {
+          id: "1530159366594",
+          title: "Project Title 4",
+          slug: "test-slug-4",
+          author: "Kyle Koivukangas",
+          date: "2018-06-27T21:15:39-10:00",
+          status: "published",
+          summary: "This is a summary of the project: Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+          content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.\nLorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam optio obcaecati officia, debitis sapiente odit inventore esse tenetur voluptates ab corporis soluta aut nobis atque exercitationem perspiciatis tempore aspernatur labore.",
+          image: "https://placeimg.com/640/480/nature?t=1531124413719"
+        },
+      ],
+      // When the user clicks the post, we make a second call to the API with the post's ID, and save the object as this.content.
+      // The object will contain the full content of the requested post. (I may load this in the background for the first 5 posts or so...)
+      content: {},
+
+
     }
   },
   methods: {
-    addTestProject() {
-      this.projectCount++;
-      this.projects.push(
-        {
-        title: `Test Project ${this.projectCount}`,
-        summary: `Test Project ${this.projectCount} summary, this is a summary of the test project! BLAH BLAH BLAH BLAH BLAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHH!`,
-        date: `${this.projectCount}-02-18—00:11:22`,
-        content: "THIS IS THE CONTENT! SHOULD BE MUCH LONGER!",
-        image: "https://dummyimage.com/600x400/000/fff"
-        })
-    },
+    fetchPost(postId) {
+      // Fetch specific post from store, if not there, get or wait for store to retrieve the post.
+      this.content = this.$store.getters.getProjectById(postId);
+    }
   }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
 </style>
