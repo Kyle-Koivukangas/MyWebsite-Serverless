@@ -16,6 +16,7 @@
     "fontawesome": "^4.7.2",
     "gsap": "^2.0.1",
     "nuxt": "^1.0.0",
+    "nuxt-sass-resources-loader": "^2.0.2",
     "vue-awesome": "^3.0.3",
     "vuefire": "^1.4.5",
     "vuetify": "^0.17.3"
@@ -27,7 +28,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
     "cross-env": "^5.0.1",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1"
