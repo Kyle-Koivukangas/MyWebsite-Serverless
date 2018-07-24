@@ -65,7 +65,7 @@
       <!-- This is the old subnav links design, copied from the original django-based version. -->
       <v-container class="secondary-info hidden" hidden-sm-and-down>
         <ul>
-          <li><a class="secondary-link" href="mailto:kyle.koivukangas@gmail.com"><icon class="ico" name="envelope" scale="1" label="envelope"></icon><fa icon="envelope"> </fa> Email</a></li>
+          <li><a class="secondary-link" href="mailto:kyle.koivukangas@gmail.com"><icon class="ico" name="envelope" scale="1" label="envelope"></icon> Email</a></li>
           <li><a class="secondary-link" target="_blank" href="https://github.com/Kyle-Koivukangas"><icon class="ico" icon="github" scale="1" name="github" label="github"></icon> Github</a></li>
           <li><a class="secondary-link" target="_blank" href="https://stackoverflow.com/users/6900746/kyle"><icon class="ico" name="stack-overflow" scale="1" label="stack overflow"></icon> Stack Overflow</a></li>
           <li><a class="secondary-link" target="_blank" href="https://www.linkedin.com/in/kyle-koivukangas/"><icon class="ico" name="linkedin-square" scale="1" label="linkedin"></icon> LinkedIn</a></li>
@@ -148,9 +148,17 @@ export default {
             },
         }
     },
+    computed: {
+    routerViewKey () {
+        // If current route has no children, set view key, otherwise pass.
+        if (this.$route.matched.length <= 1) {
+          return this.$route.fullPath.split(/[?|#]/)[0]
+        }
+      }
+    },
     methods: {
       routeTo(path) {
-        this.$nuxt.$router.push(path);
+        this.$nuxt.$router.replace(path);
       },
       onResize () {
         this.windowSize = { x: window.innerWidth, y: window.innerHeight }

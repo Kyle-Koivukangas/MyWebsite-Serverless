@@ -32,8 +32,8 @@ export default {
   },
   methods: {
     navBack() {
-      if (this.navs && !this.filters.author) this.$router.go(-1)
-      else this.$router.push('/projects')
+      if (this.navs && !this.filters.author) this.$nuxt.$router.go(-1)
+      else this.$nuxt.$router.push('/projects')
     }
   }
 }

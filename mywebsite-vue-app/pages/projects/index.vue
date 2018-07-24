@@ -2,8 +2,8 @@
   <v-container justify-center>
     <v-layout row>
       <v-flex>
-        <content-nav :content="content" :filters="filters" :navs="navs"/>
-        <content-feed :feed="feed" @viewing="fetchPost($event)" item-height="20rem">
+        <content-nav :content="navContent" :filters="filters" :navs="navs"/>
+        <content-feed :filters="filters" @viewing="fetchPost($event)" item-height="20rem">
           <content-view :content="content" slot="content"/>
         </content-feed>
         <!-- <nuxt-child></nuxt-child> -->
@@ -23,9 +23,13 @@ export default {
     return {
       transition: "fade",
       navs: 0,
-      title: '',
+      slug: '',
+      labels: {
+        id: '',
+        author: '',
+      },
         // Feed is from the initial API call, a light postList with: ID, title, author, thumbnail image and quick summary
-      feed: [
+      projects: [
         {
           id: "1530159366591",
           title: "Project Title 1",
@@ -77,33 +81,47 @@ export default {
     }
   },
   computed: {
-    // content() {
-    //   return { title: this.title, labels: this.labels }
-    // },
+    navContent() {
+      return { title: this.slug.replace(/-/g, ' '), labels: this.labels }
+    },
     filters() {
       let filters = {}
-      if (this.project) filters.project = this.project
-      if (this.author) filters.author = this.author
+      if (this.slug) filters.slug = this.slug
+      if (this.author) filters.author = this.author //No need to have author filters on projects page.
       return filters
     },
-    projects() {
-      return this.$store.state.loadedProjects;
-    }
+    // projects() {
+    //   return this.$store.state.loadedProjects;
+    // }
   },
   watch: {
-    '$route.name' (to, from) {
-      if (to !== from) this.navs++
+    '$nuxt.$route.name' (to, from) {
+      console.log(`PROJECTS_ROUTE-CHANGE, to: ${to}, from: ${from}`);
+      if (to !== from) this.navs++;
+      if (to === 'projects') this.resetState();
     }
   },
   methods: {
-    fetchPost(postId) {
+    fetchPost(item) {
       // Fetch specific post from store, if not there, get or wait for store to retrieve the post.
+      const vm = this;
       setTimeout(() => {
-        this.content = this.$store.getters.getProjectById(postId)[0];
+        vm.content = vm.projects.filter(project => {
+          return project.slug === item.slug
+        })[0]
+        
+        // this.content = this.$nuxt.$store.getters.getProjectBySlug(slug)[0];
         console.log(`PROJECTS-INDEX: @viewing received, fetching post ID`)
-        console.log(this.$store.getters.getProjectById(postId)[0]);
+        // console.log(this.$store.getters.getProjectBySlug(item.slug)[0]);
       }, 500)
+
+      this.slug = item.slug
+
       
+    },
+    resetState() {
+      this.slug = '';
+      this.content = '';
     }
   },
   async fetch({store, params}) {
